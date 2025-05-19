@@ -2,6 +2,9 @@ plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.compose)
+	alias(libs.plugins.devtools.ksp)
+	alias(libs.plugins.dagger.hilt)
+	alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -12,8 +15,8 @@ android {
 		applicationId = "com.husiev.weather.forecast"
 		minSdk = 24
 		targetSdk = 35
-		versionCode = 1
-		versionName = "1.0"
+		versionCode = 2
+		versionName = "0.2"
 		
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
@@ -49,6 +52,25 @@ dependencies {
 	implementation(libs.androidx.ui.graphics)
 	implementation(libs.androidx.ui.tooling.preview)
 	implementation(libs.androidx.material3)
+	implementation(libs.androidx.work.runtime.ktx)
+	implementation(libs.androidx.material.icons.core)
+	implementation(libs.androidx.material.icons.core.android)
+	implementation(libs.androidx.material.icons.extended.android)
+	implementation(libs.androidx.material.icons.extended)
+	// Hilt
+	implementation(libs.hilt.android)
+	implementation(libs.androidx.hilt.navigation.compose)
+	implementation(libs.androidx.hilt.work)
+	implementation(platform(libs.androidx.compose.bom))
+	ksp (libs.hilt.compiler)
+	ksp (libs.androidx.hilt.compiler)
+	// Retrofit
+	implementation(libs.retrofit)
+	implementation(libs.retrofit2.kotlinx.serialization.converter)
+	implementation(libs.okhttp)
+	implementation(libs.kotlinx.serialization.json)
+	implementation(libs.coil.compose)
+	
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +78,5 @@ dependencies {
 	androidTestImplementation(libs.androidx.ui.test.junit4)
 	debugImplementation(libs.androidx.ui.tooling)
 	debugImplementation(libs.androidx.ui.test.manifest)
+	
 }
