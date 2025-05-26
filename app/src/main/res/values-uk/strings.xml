@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Прогноз погоди</string>
+    <string name="select_city">Оберіть місто</string>
+    <string name="back">Назад</string>
+    <string name="select_a_city">Не обрано місто. Необхідно обрати.</string>
+    <string name="search_city_text">Пошук міста</string>
+    <string name="description_search_text">Search</string>
+    <string name="description_clear_search_text">Clear search text</string>
+    <string name="search_result_not_found">Вибачте, але по вашому запиту \"%1$s\" нічого не було знайдено.\nСпробуйте ще раз.</string>
+    <string name="description_loading_content">Loading Content</string>
+    <string name="description_loading_failed">Loading Failed</string>
+    <string name="search_loading_failed">Щось пішло не так: виникла помилка під час завантаження списка міст."</string>
+    <string name="search_loading_error">Не вдалося завантажити список міст:</string>
+</resources>

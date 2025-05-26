@@ -1,4 +1,4 @@
-package com.husiev.weather.forecast.composables
+package com.husiev.weather.forecast.composables.cityselection
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -48,30 +48,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.husiev.weather.forecast.R
+import com.husiev.weather.forecast.composables.Screen
+import com.husiev.weather.forecast.composables.SearchListItem
 import com.husiev.weather.forecast.network.NetworkCityInfo
 import com.husiev.weather.forecast.network.SearchResultUiState
-import com.husiev.weather.forecast.R
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitySelectionContent(
-	searchState: SearchResultUiState = SearchResultUiState.EmptyQuery,
-	searchQuery: String = "",
-	onSearchQueryChanged: (String) -> Unit = {},
-	onSearchTriggered: (String) -> Unit = {},
 	onChangeContent: (Screen) -> Unit = {},
-	onSelectCity: (NetworkCityInfo) -> Unit = {}
+	searchViewModel: CitySelectionViewModel = hiltViewModel(),
 ) {
 	val state = rememberLazyListState()
+	val searchQuery by searchViewModel.searchQuery.collectAsStateWithLifecycle()
+	val searchResult by searchViewModel.searchResult.collectAsStateWithLifecycle()
 	
 	SearchBar(
 		searchQuery = searchQuery,
-		onSearchQueryChanged = onSearchQueryChanged,
-		onSearchTriggered = onSearchTriggered,
+		onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
+		onSearchTriggered = searchViewModel::onSearchTriggered,
 	)
 	
-	when (searchState) {
+	when (val searchState = searchResult) {
 		SearchResultUiState.EmptyQuery -> Unit
 		
 		SearchResultUiState.LoadFailed -> FailScreen(modifier = Modifier.fillMaxSize())
@@ -86,7 +88,10 @@ fun CitySelectionContent(
 					items(searchState.cities) { city ->
 						SearchListItem(
 							cityInfo = city,
-							onClick = onSelectCity
+							onClick = {
+								searchViewModel.setCity(it)
+								onChangeContent(Screen.MAIN)
+							}
 						)
 					}
 				}
@@ -253,29 +258,33 @@ fun CitySelectionPreview() {
 fun SearchContentPreview() {
 	WeatherForecastTheme {
 		Column {
-			CitySelectionContent(searchState = SearchResultUiState.Success(listOf(
-				NetworkCityInfo(
-					name = "Kyiv",
-					lat = 50.4500336f,
-					lon = 30.5241361f,
-					country = "UA",
-					state = null,
-					localNames = null
-				),
-				NetworkCityInfo(
-					name = "Kyiv",
-					lat = 47.8671228f,
-					lon = 31.0179572f,
-					country = "UA",
-					state = "Mykolaiv Oblast",
-					localNames = mapOf(
-						"ru" to "Киев",
-						"en" to "Kyiv",
-						"uk" to "Київ",
-						"de" to "Kyjiw",
-					)
-				),
-			)))
+			CitySelectionContent(
+//				searchState = SearchResultUiState.Success(
+//					listOf(
+//						NetworkCityInfo(
+//							name = "Kyiv",
+//							lat = 50.4500336f,
+//							lon = 30.5241361f,
+//							country = "UA",
+//							state = null,
+//							localNames = null
+//						),
+//						NetworkCityInfo(
+//							name = "Kyiv",
+//							lat = 47.8671228f,
+//							lon = 31.0179572f,
+//							country = "UA",
+//							state = "Mykolaiv Oblast",
+//							localNames = mapOf(
+//								"ru" to "Киев",
+//								"en" to "Kyiv",
+//								"uk" to "Київ",
+//								"de" to "Kyjiw",
+//							)
+//						),
+//					)
+//				)
+			)
 		}
 	}
 }

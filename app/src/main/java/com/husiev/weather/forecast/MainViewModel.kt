@@ -3,17 +3,15 @@ package com.husiev.weather.forecast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.husiev.weather.forecast.network.NetworkCityInfo
+import com.husiev.weather.forecast.composables.Screen
 import com.husiev.weather.forecast.network.NetworkRepository
-import com.husiev.weather.forecast.network.SearchResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private const val SEARCH_QUERY = "searchQuery"
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -21,21 +19,10 @@ class MainViewModel @Inject constructor(
 	private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
 	
-	var cityInfo: NetworkCityInfo? = null
+	private var _screen: MutableStateFlow<Screen> = MutableStateFlow<Screen>(Screen.MAIN)
+	val screen: StateFlow<Screen> = _screen.asStateFlow()
 	
-	var searchQuery: StateFlow<String> = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
-	
-	var searchResult = MutableStateFlow<SearchResultUiState>(SearchResultUiState.EmptyQuery)
-	
-	fun onSearchTriggered(query: String) {
-		viewModelScope.launch(Dispatchers.IO) {
-			networkRepository.getCitiesList(query).collect {
-				searchResult.value = it
-			}
-		}
-	}
-	
-	fun onSearchQueryChanged(query: String) {
-		savedStateHandle[SEARCH_QUERY] = query
+	fun onChangeContent(newScreen: Screen) {
+		_screen.value = newScreen
 	}
 }

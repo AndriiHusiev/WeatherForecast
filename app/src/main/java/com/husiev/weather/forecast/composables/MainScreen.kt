@@ -8,24 +8,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.husiev.weather.forecast.MainViewModel
-import com.husiev.weather.forecast.network.SearchResultUiState
+import com.husiev.weather.forecast.composables.cityselection.CitySelectionContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
 	modifier: Modifier = Modifier,
-	searchViewModel: MainViewModel = hiltViewModel(),
+	mainViewModel: MainViewModel = hiltViewModel(),
 ) {
-	var selectedScreen by rememberSaveable { mutableStateOf(Screen.MAIN) }
-	val searchQuery by searchViewModel.searchQuery.collectAsStateWithLifecycle()
-	val searchResult by searchViewModel.searchResult.collectAsStateWithLifecycle()
+	val selectedScreen by mainViewModel.screen.collectAsStateWithLifecycle()
 	
 	Crossfade(
 		targetState = selectedScreen,
@@ -36,33 +31,17 @@ fun MainScreen(
 			topBar = {
 				TopAppBar(
 					screen = it,
-					onNavigationClick = { selectedScreen = Screen.MAIN },
+					onNavigationClick = { mainViewModel.onChangeContent(Screen.MAIN) },
 				)
 			}
 		) { innerPadding ->
 			Column(modifier = Modifier.padding(innerPadding)) {
 				when(it) {
 					Screen.MAIN -> MainContent(
-						onChangeContent = {
-							selectedScreen = it
-						},
+						onChangeContent = mainViewModel::onChangeContent,
 					)
 					Screen.SEL_CITY -> CitySelectionContent(
-						searchState = searchResult,
-						searchQuery = searchQuery,
-						onChangeContent = {
-							searchViewModel.onSearchQueryChanged("")
-							searchViewModel.searchResult.value = SearchResultUiState.EmptyQuery
-							selectedScreen = it
-						},
-						onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
-						onSearchTriggered = searchViewModel::onSearchTriggered,
-						onSelectCity = {
-							searchViewModel.cityInfo = it
-							searchViewModel.onSearchQueryChanged("")
-							searchViewModel.searchResult.value = SearchResultUiState.EmptyQuery
-							selectedScreen = Screen.MAIN
-						}
+						onChangeContent = mainViewModel::onChangeContent,
 					)
 				}
 			}
