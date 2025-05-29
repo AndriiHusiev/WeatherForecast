@@ -16,12 +16,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.husiev.weather.forecast.R
+import com.husiev.weather.forecast.database.entity.CityInfo
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
+	cityInfo: CityInfo?,
 	onChangeContent: (Screen) -> Unit = {},
+) {
+	if (cityInfo == null)
+		EmptyMainContent(onChangeContent)
+}
+
+@Composable
+fun EmptyMainContent(
+	onChangeContent: (Screen) -> Unit = {}
 ) {
 	Text(
 		text = stringResource(R.string.select_a_city),
@@ -59,7 +69,7 @@ fun MainContent(
 fun StartContentPreview() {
 	WeatherForecastTheme {
 		Column {
-			MainContent()
+			MainContent(null)
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.husiev.weather.forecast.composables.cityselection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.husiev.weather.forecast.database.DatabaseRepository
 import com.husiev.weather.forecast.network.NetworkCityInfo
 import com.husiev.weather.forecast.network.NetworkRepository
 import com.husiev.weather.forecast.network.SearchResultUiState
@@ -10,15 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CitySelectionViewModel @Inject constructor(
 	private val networkRepository: NetworkRepository,
+	private val databaseRepository: DatabaseRepository
 ): ViewModel() {
-	
-	private var cityInfo: NetworkCityInfo? = null
 	
 	private val _searchQuery = MutableStateFlow<String>("")
 	val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
@@ -27,7 +28,15 @@ class CitySelectionViewModel @Inject constructor(
 	val searchResult: StateFlow<SearchResultUiState> = _searchResult.asStateFlow()
 	
 	fun setCity(city: NetworkCityInfo) {
-		cityInfo = city
+		viewModelScope.launch(Dispatchers.IO) {
+			databaseRepository.listOfCities.first {
+				if (it.isNotEmpty())
+					databaseRepository.replaceCity(it.first(), city)
+				else
+					databaseRepository.addCity(city)
+				true
+			}
+		}
 		onSearchQueryChanged("")
 		clearSearchResult()
 	}

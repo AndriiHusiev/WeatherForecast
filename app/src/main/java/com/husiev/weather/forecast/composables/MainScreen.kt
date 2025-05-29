@@ -21,6 +21,7 @@ fun MainScreen(
 	mainViewModel: MainViewModel = hiltViewModel(),
 ) {
 	val selectedScreen by mainViewModel.screen.collectAsStateWithLifecycle()
+	val cityInfo by mainViewModel.cityInfo.collectAsStateWithLifecycle()
 	
 	Crossfade(
 		targetState = selectedScreen,
@@ -31,13 +32,20 @@ fun MainScreen(
 			topBar = {
 				TopAppBar(
 					screen = it,
-					onNavigationClick = { mainViewModel.onChangeContent(Screen.MAIN) },
+					name = cityInfo?.name ?: "",
+					onNavigationClick = { mainViewModel.onChangeContent(
+						if (selectedScreen == Screen.MAIN)
+							Screen.SEL_CITY
+						else
+							Screen.MAIN
+					)},
 				)
 			}
 		) { innerPadding ->
 			Column(modifier = Modifier.padding(innerPadding)) {
 				when(it) {
 					Screen.MAIN -> MainContent(
+						cityInfo = cityInfo,
 						onChangeContent = mainViewModel::onChangeContent,
 					)
 					Screen.SEL_CITY -> CitySelectionContent(

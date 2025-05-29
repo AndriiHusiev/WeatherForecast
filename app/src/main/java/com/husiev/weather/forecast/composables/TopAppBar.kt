@@ -1,8 +1,12 @@
 package com.husiev.weather.forecast.composables
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,16 +18,19 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.husiev.weather.forecast.R
+import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
 	screen: Screen,
 	modifier: Modifier = Modifier,
+	name: String = "",
 	actionIcon: ImageVector? = null,
 	navigationIconContentDescription: String? = stringResource(R.string.back),
 	actionIconContentDescription: String? = null,
@@ -31,17 +38,17 @@ fun TopAppBar(
 	onNavigationClick: () -> Unit = {},
 	onActionClick: () -> Unit = {},
 ) {
-	var id = R.string.app_name
+	var header = if (name.isEmpty()) stringResource(R.string.app_name) else name
 	var navigationIcon: ImageVector? = Icons.AutoMirrored.Filled.ArrowBack
 	when(screen) {
-		Screen.MAIN -> navigationIcon = null
-		Screen.SEL_CITY -> id = R.string.select_city
+		Screen.MAIN -> navigationIcon = Icons.Filled.Search
+		Screen.SEL_CITY -> header = stringResource(R.string.select_city)
 	}
 	
 	CenterAlignedTopAppBar(
 		title = {
 			Text(
-				text = stringResource(id),
+				text = header,
 				overflow = TextOverflow.Ellipsis,
 				maxLines = 1,
 			)
@@ -77,10 +84,19 @@ fun TopAppBar(
 @Preview("Top App Bar")
 @Composable
 private fun DATopAppBarPreview() {
-	TopAppBar(
-		navigationIconContentDescription = "Navigation icon",
-		actionIcon = Icons.Filled.MoreVert,
-		actionIconContentDescription = "Action icon",
-		screen = Screen.SEL_CITY,
-	)
+	WeatherForecastTheme {
+		Column {
+			TopAppBar(
+				name = "Kyiv",
+				screen = Screen.MAIN,
+			)
+			Spacer(Modifier.padding(vertical = dimensionResource(R.dimen.padding_small)))
+			TopAppBar(
+				navigationIconContentDescription = "Navigation icon",
+				actionIcon = Icons.Filled.MoreVert,
+				actionIconContentDescription = "Action icon",
+				screen = Screen.SEL_CITY,
+			)
+		}
+	}
 }

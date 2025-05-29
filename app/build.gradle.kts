@@ -15,8 +15,8 @@ android {
 		applicationId = "com.husiev.weather.forecast"
 		minSdk = 24
 		targetSdk = 35
-		versionCode = 3
-		versionName = "0.2.1"
+		versionCode = 4
+		versionName = "0.3"
 		
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
@@ -69,6 +69,11 @@ dependencies {
 	implementation(libs.okhttp)
 	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.coil.compose)
+	// Room
+	implementation(libs.androidx.room.runtime)
+	implementation(libs.androidx.room.ktx)
+	annotationProcessor(libs.androidx.room.compiler)
+	ksp(libs.androidx.room.compiler)
 	
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
