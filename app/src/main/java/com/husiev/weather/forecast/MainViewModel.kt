@@ -3,24 +3,39 @@ package com.husiev.weather.forecast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.husiev.weather.forecast.composables.Screen
+import com.husiev.weather.forecast.composables.main.CityInfo
+import com.husiev.weather.forecast.composables.main.CurrentWeatherInfo
+import com.husiev.weather.forecast.composables.main.WeatherInfo
 import com.husiev.weather.forecast.database.DatabaseRepository
-import com.husiev.weather.forecast.database.entity.CityInfo
+import com.husiev.weather.forecast.database.entity.CityEntity
 import com.husiev.weather.forecast.database.entity.asExternalModel
+import com.husiev.weather.forecast.network.NetworkCityInfo
+import com.husiev.weather.forecast.network.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.collections.first
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+	private val networkRepository: NetworkRepository,
 	private val databaseRepository: DatabaseRepository
 ): ViewModel() {
+	
+	init {
+		viewModelScope.launch(Dispatchers.IO) {
+			loadWeather()
+		}
+	}
 	
 	private var _screen: MutableStateFlow<Screen> = MutableStateFlow<Screen>(Screen.MAIN)
 	val screen: StateFlow<Screen> = _screen.asStateFlow()
@@ -29,25 +44,73 @@ class MainViewModel @Inject constructor(
 		_screen.value = newScreen
 	}
 	
-	val cityInfo: StateFlow<CityInfo?> = databaseRepository.listOfCities
-		.map { list ->
-			if (list.isNotEmpty()) {
-				var name = ""
-				var langTag = Locale.getDefault().language
-				val item = list.first()
-				databaseRepository.getLocalName(item.id, langTag).first { names ->
-					name = if (names.isNotEmpty())
-						names.first().name
-					else
-						item.name
-					true
-				}
-				list.first().asExternalModel(name)
-			} else null
+	val weather: StateFlow<WeatherInfo> = databaseRepository.listOfCities
+		.combine(databaseRepository.getCurrentWeather()) { cities, today ->
+			WeatherInfo(
+				getCityInfo(cities, databaseRepository),
+				today.firstOrNull()?.asExternalModel() ?: CurrentWeatherInfo()
+			)
 		}
 		.stateIn(
 			scope = viewModelScope,
 			started = SharingStarted.WhileSubscribed(5_000),
-			initialValue = null
+			initialValue = WeatherInfo()
 		)
+	
+	fun setCity(city: NetworkCityInfo) {
+		viewModelScope.launch(Dispatchers.IO) {
+			databaseRepository.listOfCities.first {
+				if (it.isNotEmpty())
+					databaseRepository.replaceCity(it.first(), city)
+				else
+					databaseRepository.addCity(city)
+				true
+			}
+			loadWeather()
+		}
+	}
+	
+	suspend fun loadWeather() {
+		val info = getCityEntity(databaseRepository)
+		if (info != null) {
+			val today = networkRepository.getCurrentWeather(info.lat, info.lon)
+			if (today != null)
+				databaseRepository.saveCurrentWeather(today, info.id)
+		}
+	}
+}
+
+suspend fun getCityInfo(
+	list: List<CityEntity>,
+	db: DatabaseRepository,
+): CityInfo? {
+	var info: CityInfo? = null
+	
+	if (list.isNotEmpty()) {
+		var name = ""
+		var langTag = Locale.getDefault().language
+		val item = list.first()
+		db.getLocalName(item.id, langTag).first { names ->
+			name = if (names.isNotEmpty())
+				names.first().name
+			else
+				item.name
+			true
+		}
+		info = item.asExternalModel(name)
+	}
+	
+	return info
+}
+
+suspend fun getCityEntity(db: DatabaseRepository): CityEntity? {
+	var item: CityEntity? = null
+	db.listOfCities.first {
+		if (it.isNotEmpty()) {
+			item = it.first()
+		}
+		true
+	}
+	
+	return item
 }

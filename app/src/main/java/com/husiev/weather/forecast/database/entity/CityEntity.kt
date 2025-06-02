@@ -3,6 +3,7 @@ package com.husiev.weather.forecast.database.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.husiev.weather.forecast.composables.main.CityInfo
 
 @Entity(
 	tableName = "cities",
@@ -16,15 +17,6 @@ data class CityEntity(
 	val lon: Float,
 	val country: String,
 	val state: String? = null,
-)
-
-data class CityInfo (
-	val id: Int,
-	val lat: Float,
-	val lon: Float,
-	val country: String,
-	val state: String?,
-	val name: String,
 )
 
 fun CityEntity.asExternalModel(name: String): CityInfo {

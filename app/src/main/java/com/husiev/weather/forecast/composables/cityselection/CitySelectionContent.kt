@@ -60,6 +60,7 @@ import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitySelectionContent(
+	onItemClick: (NetworkCityInfo) -> Unit = {},
 	onChangeContent: (Screen) -> Unit = {},
 	searchViewModel: CitySelectionViewModel = hiltViewModel(),
 ) {
@@ -89,8 +90,9 @@ fun CitySelectionContent(
 						SearchListItem(
 							cityInfo = city,
 							onClick = {
-								searchViewModel.setCity(it)
-								onChangeContent(Screen.MAIN)
+								onItemClick(it)
+								searchViewModel.onSearchQueryChanged("")
+								searchViewModel.clearSearchResult()
 							}
 						)
 					}

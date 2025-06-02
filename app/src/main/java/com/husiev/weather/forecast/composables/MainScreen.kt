@@ -21,7 +21,7 @@ fun MainScreen(
 	mainViewModel: MainViewModel = hiltViewModel(),
 ) {
 	val selectedScreen by mainViewModel.screen.collectAsStateWithLifecycle()
-	val cityInfo by mainViewModel.cityInfo.collectAsStateWithLifecycle()
+	val weather by mainViewModel.weather.collectAsStateWithLifecycle()
 	
 	Crossfade(
 		targetState = selectedScreen,
@@ -32,7 +32,7 @@ fun MainScreen(
 			topBar = {
 				TopAppBar(
 					screen = it,
-					name = cityInfo?.name ?: "",
+					name = weather.cityInfo?.name ?: "",
 					onNavigationClick = { mainViewModel.onChangeContent(
 						if (selectedScreen == Screen.MAIN)
 							Screen.SEL_CITY
@@ -45,11 +45,15 @@ fun MainScreen(
 			Column(modifier = Modifier.padding(innerPadding)) {
 				when(it) {
 					Screen.MAIN -> MainContent(
-						cityInfo = cityInfo,
+						weather = weather,
 						onChangeContent = mainViewModel::onChangeContent,
 					)
 					Screen.SEL_CITY -> CitySelectionContent(
 						onChangeContent = mainViewModel::onChangeContent,
+						onItemClick = {
+							mainViewModel.setCity(it)
+							mainViewModel.onChangeContent(Screen.MAIN)
+						}
 					)
 				}
 			}

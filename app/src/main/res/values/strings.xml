@@ -11,4 +11,147 @@
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Something went wrong: failed loading cities list."</string>
     <string name="search_loading_error">Failed to load cities list:</string>
+
+    <string name="feels_like">Feels like</string>
+    <string name="pressure">Pressure</string>
+    <string name="hpa">hPa</string>
+    <string name="humidity">Humidity</string>
+    <string name="visibility">Visibility</string>
+    <string name="km">km</string>
+    <string name="wind">Wind</string>
+    <string name="wind_gust">Gust</string>
+    <string name="wind_dir">Direction</string>
+    <string name="meter_sec">m/sec</string>
+    <string name="mm_h">mm/h</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+
+<!--    Weather Description     -->
+<!--    https://openweathermap.org/weather-conditions     -->
+    <string-array name="weather_desc">
+        <item>Thunderstorm with light rain</item>
+        <item>Thunderstorm with rain</item>
+        <item>Thunderstorm with heavy rain</item>
+        <item>Light thunderstorm</item>
+        <item>Thunderstorm</item>
+        <item>Heavy thunderstorm</item>
+        <item>Ragged thunderstorm</item>
+        <item>Thunderstorm with light drizzle</item>
+        <item>Thunderstorm with drizzle</item>
+        <item>Thunderstorm with heavy drizzle</item>
+
+        <item>Light intensity drizzle</item>
+        <item>Drizzle</item>
+        <item>Heavy intensity drizzle</item>
+        <item>Light intensity drizzle rain</item>
+        <item>Drizzle rain</item>
+        <item>Heavy intensity drizzle rain</item>
+        <item>Shower rain and drizzle</item>
+        <item>Heavy shower rain and drizzle</item>
+        <item>Shower drizzle</item>
+
+        <item>Light rain</item>
+        <item>Moderate rain</item>
+        <item>Heavy intensity rain</item>
+        <item>Very heavy rain</item>
+        <item>Extreme rain</item>
+        <item>Freezing rain</item>
+        <item>Light intensity shower rain</item>
+        <item>Shower rain</item>
+        <item>Heavy intensity shower rain</item>
+        <item>Ragged shower rain</item>
+
+        <item>Light snow</item>
+        <item>Snow</item>
+        <item>Heavy snow</item>
+        <item>Sleet</item>
+        <item>Light shower sleet</item>
+        <item>Shower sleet</item>
+        <item>Light rain and snow</item>
+        <item>Rain and snow</item>
+        <item>Light shower snow</item>
+        <item>Shower snow</item>
+        <item>Heavy shower snow</item>
+
+        <item>Mist</item>
+        <item>Smoke</item>
+        <item>Haze</item>
+        <item>Sand/dust whirls</item>
+        <item>Fog</item>
+        <item>Sand</item>
+        <item>Dust</item>
+        <item>Volcanic ash</item>
+        <item>Squall</item>
+        <item>Tornado</item>
+
+        <item>Clear sky</item>
+        <item>Few clouds</item>
+        <item>Scattered clouds</item>
+        <item>Broken clouds</item>
+        <item>Overcast clouds</item>
+    </string-array>
+
+    <integer-array name="weather_id">
+        <item>200</item>
+        <item>201</item>
+        <item>202</item>
+        <item>210</item>
+        <item>211</item>
+        <item>212</item>
+        <item>221</item>
+        <item>230</item>
+        <item>231</item>
+        <item>232</item>
+
+        <item>300</item>
+        <item>301</item>
+        <item>302</item>
+        <item>310</item>
+        <item>311</item>
+        <item>312</item>
+        <item>313</item>
+        <item>314</item>
+        <item>321</item>
+
+        <item>500</item>
+        <item>501</item>
+        <item>502</item>
+        <item>503</item>
+        <item>504</item>
+        <item>511</item>
+        <item>520</item>
+        <item>521</item>
+        <item>522</item>
+        <item>531</item>
+
+        <item>600</item>
+        <item>601</item>
+        <item>602</item>
+        <item>611</item>
+        <item>612</item>
+        <item>613</item>
+        <item>615</item>
+        <item>616</item>
+        <item>620</item>
+        <item>621</item>
+        <item>622</item>
+
+        <item>701</item>
+        <item>711</item>
+        <item>721</item>
+        <item>731</item>
+        <item>741</item>
+        <item>751</item>
+        <item>761</item>
+        <item>762</item>
+        <item>771</item>
+        <item>781</item>
+
+        <item>800</item>
+        <item>801</item>
+        <item>802</item>
+        <item>803</item>
+        <item>804</item>
+    </integer-array>
+
 </resources>

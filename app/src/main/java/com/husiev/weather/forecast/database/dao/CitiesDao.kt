@@ -9,7 +9,4 @@ import kotlinx.coroutines.flow.Flow
 interface CitiesDao: BaseDao<CityEntity> {
 	@Query("SELECT * FROM cities")
 	fun loadCitiesList(): Flow<List<CityEntity>>
-	
-	@Query("SELECT * FROM cities WHERE lat = :lat AND lon = :lon")
-	fun loadCity(lat: Float, lon: Float): Flow<CityEntity>
 }

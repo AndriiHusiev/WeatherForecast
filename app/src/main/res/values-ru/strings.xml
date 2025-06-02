@@ -11,4 +11,82 @@
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Что-то пошло не так: возникла ошибка во время загрузки списка городов.</string>
     <string name="search_loading_error">Не удалось загрузить список городов:</string>
+
+    <string name="feels_like">Чувствуется как</string>
+    <string name="pressure">Давление</string>
+    <string name="hpa">гПа</string>
+    <string name="humidity">Влажность</string>
+    <string name="visibility">Видимость</string>
+    <string name="km">км</string>
+    <string name="wind">Ветер</string>
+    <string name="wind_gust">Порывы</string>
+    <string name="wind_dir">Направление</string>
+    <string name="meter_sec">м/с</string>
+    <string name="mm_h">мм/ч</string>
+    <string name="sunrise">Восход</string>
+    <string name="sunset">Закат</string>
+
+    <!--    Weather Description     -->
+    <string-array name="weather_desc">
+        <item>Гроза с небольшим дождем</item>
+        <item>Гроза с дождем</item>
+        <item>Гроза с сильным дождем</item>
+        <item>Слабая гроза</item>
+        <item>Гроза</item>
+        <item>Сильная гроза</item>
+        <item>Рваная гроза</item>
+        <item>Гроза с небольшим моросящим дождем</item>
+        <item>Гроза с моросящим дождем</item>
+        <item>Гроза с сильным моросящим дождем</item>
+
+        <item>Слабая морось</item>
+        <item>Морось</item>
+        <item>Сильная морось</item>
+        <item>Слабый моросящий дождь</item>
+        <item>Моросящий дождь</item>
+        <item>Сильный моросящий дождь</item>
+        <item>Ливень и морось</item>
+        <item>Сильный ливень и морось</item>
+        <item>Ливень и морось</item>
+
+        <item>Слабый дождь</item>
+        <item>Умеренный дождь</item>
+        <item>Сильный дождь</item>
+        <item>Очень сильный дождь</item>
+        <item>Экстремальный дождь</item>
+        <item>Ледяной дождь</item>
+        <item>Слабый ливень</item>
+        <item>Ливень</item>
+        <item>Сильный ливень</item>
+        <item>Рваный ливень</item>
+
+        <item>Слабый снег</item>
+        <item>Снег</item>
+        <item>Сильный снег</item>
+        <item>Мокрый снег</item>
+        <item>Слабый ливень со снегом</item>
+        <item>Ливень со снегом</item>
+        <item>Слабый дождь и снег</item>
+        <item>Дождь и снег</item>
+        <item>Слабый ливень со снегом</item>
+        <item>Сильный снег</item>
+        <item>Очень сильный снег</item>
+
+        <item>Туман</item>
+        <item>Дым</item>
+        <item>Мгла</item>
+        <item>Песчаные/пылевые вихри</item>
+        <item>Туман</item>
+        <item>Песок</item>
+        <item>Пыль</item>
+        <item>Вулканический пепел</item>
+        <item>Шквал</item>
+        <item>Торнадо</item>
+
+        <item>Ясное небо</item>
+        <item>Низкая облачность</item>
+        <item>Рассеянная облачность</item>
+        <item>Разрозненная облачность</item>
+        <item>Сплошная облачность</item>
+    </string-array>
 </resources>

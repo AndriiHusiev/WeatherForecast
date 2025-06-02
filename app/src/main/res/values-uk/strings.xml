@@ -11,4 +11,82 @@
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Щось пішло не так: виникла помилка під час завантаження списка міст."</string>
     <string name="search_loading_error">Не вдалося завантажити список міст:</string>
+
+    <string name="feels_like">Відчувається як</string>
+    <string name="pressure">Тиск</string>
+    <string name="hpa">гПа</string>
+    <string name="humidity">Вологість</string>
+    <string name="visibility">Видимість</string>
+    <string name="km">км</string>
+    <string name="wind">Вітер</string>
+    <string name="wind_gust">Пориви</string>
+    <string name="wind_dir">Напрям</string>
+    <string name="meter_sec">м/с</string>
+    <string name="mm_h">мм/год</string>
+    <string name="sunrise">Схід сонця</string>
+    <string name="sunset">Захід сонця</string>
+
+    <!--    Weather Description     -->
+    <string-array name="weather_desc">
+        <item>Гроза з невеликим дощем</item>
+        <item>Гроза з дощем</item>
+        <item>Гроза з сильним дощем</item>
+        <item>Невелика гроза</item>
+        <item>Гроза</item>
+        <item>Сильна гроза</item>
+        <item>Поривчаста гроза</item>
+        <item>Гроза з легкою мрякою</item>
+        <item>Гроза з мрякою</item>
+        <item>Гроза з сильною мрякою</item>
+
+        <item>Легка мряка</item>
+        <item>Мряка</item>
+        <item>Сильна мряка</item>
+        <item>Легка мряка</item>
+        <item>Мряка</item>
+        <item>Сильна мряка</item>
+        <item>Злива та мряка</item>
+        <item>Сильна злива та мряка</item>
+        <item>Злива та мряка</item>
+
+        <item>Легкий дощ</item>
+        <item>Помірний дощ</item>
+        <item>Сильний дощ</item>
+        <item>Дуже сильний дощ</item>
+        <item>Екстремальний дощ</item>
+        <item>Крижаний дощ</item>
+        <item>Легка злива</item>
+        <item>Злива</item>
+        <item>Сильна злива</item>
+        <item>Нерівний дощ</item>
+
+        <item>Легкий сніг</item>
+        <item>Сніг</item>
+        <item>Сильний сніг</item>
+        <item>Мокрий сніг</item>
+        <item>Легка злива зі снігом</item>
+        <item>Злива зі снігом</item>
+        <item>Легкий дощ зі снігом</item>
+        <item>Дощ зі снігом</item>
+        <item>Легка злива зі снігом</item>
+        <item>Сильний сніг</item>
+        <item>Дуже сильний сніг</item>
+
+        <item>Туман</item>
+        <item>Дим</item>
+        <item>Серпанок</item>
+        <item>Піщано-пилові вихори</item>
+        <item>Туман</item>
+        <item>Пісок</item>
+        <item>Пил</item>
+        <item>Вулканічний попіл</item>
+        <item>Шквал</item>
+        <item>Торнадо</item>
+
+        <item>Ясне небо</item>
+        <item>Низька хмарність</item>
+        <item>Розсіяна хмарність</item>
+        <item>Розрізнена хмарність</item>
+        <item>Похмуро</item>
+    </string-array>
 </resources>

@@ -20,4 +20,18 @@ interface NetworkApiService {
 		@Query("appid") appId: String = "a0379a533a0c2397d01c5dfb7386e2e2",
 	): List<NetworkCityInfo>
 	
+	/**
+	 * Returns current weather data for any location on Earth.
+	 * @param latitude Latitude.
+	 * @param longitude Longitude.
+	 * @param appId Application ID.
+	 * @param units Units of measurement. "standard", "metric" and "imperial" units are available.
+	 */
+	@GET("data/2.5/weather")
+	suspend fun getCurrentWeather(
+		@Query("lat") latitude: Float,
+		@Query("lon") longitude: Float,
+		@Query("appid") appId: String = "a0379a533a0c2397d01c5dfb7386e2e2",
+		@Query("units") units: String = "metric",
+	): NetworkTodayInfo
 }
