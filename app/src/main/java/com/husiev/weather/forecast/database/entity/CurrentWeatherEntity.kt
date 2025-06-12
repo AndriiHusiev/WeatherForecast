@@ -52,30 +52,31 @@ data class CurrentWeatherEntity(
 	val snow: Float? = null,
 )
 
-fun CurrentWeatherEntity.asExternalModel() = CurrentWeatherInfo(
-	cityId = this.cityId,
-	temperature = this.temperature.roundToInt().toString(),
-	feelsLike = this.feelsLike.roundToInt().toString(),
-	weatherId = this.weatherId,
-	weatherGroup = this.weatherGroup,
-	weatherDescription = this.weatherDescription,
-	weatherIcon = this.weatherIcon,
-	pressure = this.pressure.toString(),
-	humidity = this.humidity.toString(),
-	visibility = if (this.visibility < 1000)
-		(this.visibility / 1000f).toString()
-	else
-		(this.visibility / 1000).toString(),
-	sunrise = this.sunrise,
-	sunset = this.sunset,
-	windSpeed = if (this.windSpeed == null) "" else this.windSpeed.roundToInt().toString(),
-	windDeg = this.windDeg?.toFloat(),
-	windDir = this.windDeg.degToDir(),
-	windGust = this.windGust?.toString() ?: NO_DATA,
-	cloudiness = this.cloudiness?.let { ", $it%" } ?: NO_DATA,
-	rain = this.rain?.let { ", $it" } ?: NO_DATA,
-	snow = this.snow?.let { ", $it" } ?: NO_DATA,
-)
+fun List<CurrentWeatherEntity>.asExternalModel(): CurrentWeatherInfo {
+	if (this.isEmpty()) return CurrentWeatherInfo()
+	
+	return CurrentWeatherInfo(
+		temperature = this[0].temperature.roundToInt().toString() + "°",
+		feelsLike = this[0].feelsLike.roundToInt().toString() + "°",
+		weatherId = this[0].weatherId,
+		weatherIcon = this[0].weatherIcon,
+		pressure = this[0].pressure.toString(),
+		humidity = this[0].humidity.toString(),
+		visibility = if (this[0].visibility < 1000)
+			(this[0].visibility / 1000f).toString()
+		else
+			(this[0].visibility / 1000).toString(),
+		sunrise = this[0].sunrise,
+		sunset = this[0].sunset,
+		windSpeed = this[0].windSpeed?.roundToInt()?.toString() ?: "",
+		windDeg = this[0].windDeg?.toFloat(),
+		windDir = this[0].windDeg.degToDir(),
+		windGust = this[0].windGust?.roundToInt()?.toString() ?: NO_DATA,
+		cloudiness = this[0].cloudiness?.let { ", $it%" } ?: NO_DATA,
+		rain = this[0].rain?.let { ", $it" } ?: NO_DATA,
+		snow = this[0].snow?.let { ", $it" } ?: NO_DATA
+	)
+}
 
 fun codeToResId(code: String) = when(code) {
 	"01d" -> R.drawable.icon01d

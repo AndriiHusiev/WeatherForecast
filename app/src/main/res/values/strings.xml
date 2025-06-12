@@ -11,6 +11,8 @@
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Something went wrong: failed loading cities list."</string>
     <string name="search_loading_error">Failed to load cities list:</string>
+    <string name="show_less" translatable="false">Show less</string>
+    <string name="show_more" translatable="false">Show more</string>
 
     <string name="feels_like">Feels like</string>
     <string name="pressure">Pressure</string>
@@ -25,6 +27,8 @@
     <string name="mm_h">mm/h</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 
 <!--    Weather Description     -->
 <!--    https://openweathermap.org/weather-conditions     -->

@@ -25,6 +25,8 @@
     <string name="mm_h">мм/ч</string>
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
 
     <!--    Weather Description     -->
     <string-array name="weather_desc">

@@ -44,12 +44,12 @@ fun TodayHeaderBlock(
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		Text(
-			text = "${curWeather.temperature}°",
+			text = curWeather.temperature,
 			fontSize = 72.sp,
 			fontWeight = FontWeight.Bold,
 		)
 		Text(
-			text = stringResource(R.string.feels_like) + " ${curWeather.feelsLike}°",
+			text = stringResource(R.string.feels_like) + " ${curWeather.feelsLike}",
 			style = MaterialTheme.typography.labelLarge,
 		)
 		Row(verticalAlignment = Alignment.CenterVertically) {

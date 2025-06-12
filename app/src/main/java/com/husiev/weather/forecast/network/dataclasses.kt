@@ -2,6 +2,7 @@ package com.husiev.weather.forecast.network
 
 import com.husiev.weather.forecast.database.entity.CityEntity
 import com.husiev.weather.forecast.database.entity.CurrentWeatherEntity
+import com.husiev.weather.forecast.database.entity.ForecastWeatherEntity
 import com.husiev.weather.forecast.database.entity.LocalNamesEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -36,6 +37,44 @@ data class NetworkTodayInfo (
 	val sys: Sys
 )
 
+@Serializable
+data class NetworkForecastInfo (
+	val cod: String,
+	val message: Int,
+	val cnt: Int,
+	val list: List<ForecastListItem>,
+	val city: City,
+)
+
+fun NetworkForecastInfo.asEntity(cityId: Int): List<ForecastWeatherEntity> {
+	val list = mutableListOf<ForecastWeatherEntity>()
+	this.list.forEach { 
+		list.add(ForecastWeatherEntity(
+			cityId = cityId,
+			datetime = it.dt,
+			temperature = it.main.temp,
+			feelsLike = it.main.feelsLike,
+			pressure = it.main.groundLevel,
+			humidity = it.main.humidity,
+			visibility = it.visibility,
+			pop = it.pop,
+			weatherId = it.weather[0].id,
+			weatherGroup = it.weather[0].main,
+			weatherDescription = it.weather[0].description,
+			weatherIcon = it.weather[0].icon,
+			windSpeed = it.wind?.speed,
+			windDeg = it.wind?.deg,
+			windGust = it.wind?.gust,
+			cloudiness = it.clouds?.all,
+			rain = it.rain?.threeHour,
+			snow = it.snow?.threeHour,
+			pod = it.sys.pod
+		))
+	}
+	
+	return list
+}
+
 fun NetworkTodayInfo.asEntity(cityId: Int) = CurrentWeatherEntity(
 	cityId = cityId,
 	visibility = this.visibility,
@@ -47,8 +86,8 @@ fun NetworkTodayInfo.asEntity(cityId: Int) = CurrentWeatherEntity(
 	feelsLike = this.main.feelsLike,
 	pressure = this.main.groundLevel,
 	humidity = this.main.humidity,
-	sunrise = this.sys.sunrise + this.timezone,
-	sunset = this.sys.sunset + this.timezone,
+	sunrise = this.sys.sunrise,
+	sunset = this.sys.sunset,
 	windSpeed = this.wind?.speed,
 	windDeg = this.wind?.deg,
 	windGust = this.wind?.gust,
@@ -147,4 +186,49 @@ data class Sys(
 	val sunrise: Int,
 	val sunset: Int,
 	val country: String,
+)
+
+@Serializable
+data class ForecastListItem (
+	val dt: Int,
+	val visibility: Int? = null,
+	val pop: Float,
+	@SerialName(value = "dt_txt")
+	val dtTxt: String,
+	val main: Main,
+	val weather: List<Weather>,
+	val wind: Wind? = null,
+	val clouds: Clouds? = null,
+	val rain: RainForecast? = null,
+	val snow: SnowForecast? = null,
+	val sys: SysForecast,
+)
+
+@Serializable
+data class City (
+	val id: Int,
+	val population: Int,
+	val timezone: Int,
+	val name: String,
+	val country: String,
+	val sunrise: Int,
+	val sunset: Int,
+	val coord: Coordinates,
+)
+
+@Serializable
+data class SysForecast(
+	val pod: String,
+)
+
+@Serializable
+data class RainForecast(
+	@SerialName(value = "3h")
+	val threeHour: Float,
+)
+
+@Serializable
+data class SnowForecast(
+	@SerialName(value = "3h")
+	val threeHour: Float,
 )

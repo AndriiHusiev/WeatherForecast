@@ -2,6 +2,7 @@ package com.husiev.weather.forecast.database
 
 import com.husiev.weather.forecast.database.entity.CityEntity
 import com.husiev.weather.forecast.network.NetworkCityInfo
+import com.husiev.weather.forecast.network.NetworkForecastInfo
 import com.husiev.weather.forecast.network.NetworkTodayInfo
 import com.husiev.weather.forecast.network.asEntity
 import com.husiev.weather.forecast.network.asLocalNamesEntity
@@ -37,5 +38,10 @@ class DatabaseRepository @Inject constructor(
 		database.currentWeatherDao().insertOrReplace(currentWeather.asEntity(cityId))
 	
 	fun getCurrentWeather() = database.currentWeatherDao().loadCurrentWeather()
+	
+	suspend fun saveForecastWeather(forecastWeather: NetworkForecastInfo, cityId: Int) =
+		database.forecastWeatherDao().insertOrReplace(forecastWeather.asEntity(cityId))
+	
+	fun getForecastWeather() = database.forecastWeatherDao().loadForecastWeather()
 	
 }

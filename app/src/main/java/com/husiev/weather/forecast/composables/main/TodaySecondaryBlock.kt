@@ -7,17 +7,15 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.WaterDrop
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,6 +26,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.husiev.weather.forecast.R
 import com.husiev.weather.forecast.database.entity.degToDir
@@ -108,13 +107,7 @@ fun SingleTodayCard(
 	modifier: Modifier = Modifier,
 	angle: Float? = null
 ) {
-	ElevatedCard(
-		modifier = modifier.aspectRatio(1f),
-		shape = RoundedCornerShape(dimensionResource(R.dimen.padding_medium)),
-		elevation = CardDefaults.elevatedCardElevation(
-			dimensionResource(R.dimen.padding_extra_small)
-		)
-	) {
+	WeatherCard(modifier = modifier.aspectRatio(1f)) {
 		Column(
 			modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)).fillMaxHeight(),
 			verticalArrangement = Arrangement.SpaceBetween
@@ -154,16 +147,20 @@ fun SingleTodayCard(
 @Composable
 fun TodaySecondaryBlockPreview() {
 	WeatherForecastTheme {
-		Column {
-			TodaySecondaryBlock(CurrentWeatherInfo(
-				pressure = "1018",
-				humidity = "44",
-				visibility = "10",
-				windSpeed = "13",
-				windGust = "20",
-				windDeg = 290f,
-				windDir = 290.degToDir(),
-			))
+		Surface {
+			Column(Modifier.padding(16.dp)) {
+				TodaySecondaryBlock(
+					CurrentWeatherInfo(
+						pressure = "1018",
+						humidity = "44",
+						visibility = "10",
+						windSpeed = "13",
+						windGust = "20",
+						windDeg = 290f,
+						windDir = 290.degToDir(),
+					)
+				)
+			}
 		}
 	}
 }

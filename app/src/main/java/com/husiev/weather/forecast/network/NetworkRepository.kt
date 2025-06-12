@@ -29,6 +29,14 @@ class NetworkRepository @Inject constructor(
 			logDebugOut("NetworkRepository", "Failed to get current weather", exception)
 			null
 		}
+	
+	suspend fun getForecastWeather(latitude: Float, longitude: Float) =
+		try {
+			networkService.getForecastWeather(latitude, longitude)
+		} catch (exception: IOException) {
+			logDebugOut("NetworkRepository", "Failed to get forecast weather", exception)
+			null
+		}
 }
 
 fun logDebugOut(obj: String, message: String, param: Any) {

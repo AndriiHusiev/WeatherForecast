@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -241,52 +242,13 @@ fun FailScreen(modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true)
-@Preview(
-	showBackground = true,
-	uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-fun CitySelectionPreview() {
-	WeatherForecastTheme {
-		Column {
-			CitySelectionContent()
-		}
-	}
-}
-
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, name = "Light theme")
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark theme")
 @Composable
 fun SearchContentPreview() {
 	WeatherForecastTheme {
-		Column {
-			CitySelectionContent(
-//				searchState = SearchResultUiState.Success(
-//					listOf(
-//						NetworkCityInfo(
-//							name = "Kyiv",
-//							lat = 50.4500336f,
-//							lon = 30.5241361f,
-//							country = "UA",
-//							state = null,
-//							localNames = null
-//						),
-//						NetworkCityInfo(
-//							name = "Kyiv",
-//							lat = 47.8671228f,
-//							lon = 31.0179572f,
-//							country = "UA",
-//							state = "Mykolaiv Oblast",
-//							localNames = mapOf(
-//								"ru" to "Киев",
-//								"en" to "Kyiv",
-//								"uk" to "Київ",
-//								"de" to "Kyjiw",
-//							)
-//						),
-//					)
-//				)
-			)
+		Surface {
+			Column {
+				SearchBar(searchQuery = "Kyiv")
+			}
 		}
 	}
 }
