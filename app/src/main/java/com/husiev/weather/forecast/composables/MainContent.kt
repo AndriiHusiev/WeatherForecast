@@ -8,7 +8,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,11 +34,10 @@ import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
 	weather: WeatherInfo,
-	onChangeContent: (Screen) -> Unit = {},
+	onChangeContent: (Screen, Int) -> Unit,
 ) {
 	if (weather.cityInfo == null)
 		EmptyMainContent(onChangeContent)
@@ -53,7 +51,9 @@ fun MainContent(
 			TodayHeaderBlock(curWeather = weather.current)
 			TodaySecondaryBlock(curWeather = weather.current)
 			ForecastHoursBlock(forecast = weather.fullForecast)
-			ForecastDaysBlock(forecast = weather.briefForecast)
+			ForecastDaysBlock(
+				forecast = weather.briefForecast,
+				onClick = { onChangeContent(Screen.SEL_DAY, it)})
 			TodaySunBlock(curWeather = weather.current)
 		}
 	}
@@ -61,7 +61,7 @@ fun MainContent(
 
 @Composable
 fun EmptyMainContent(
-	onChangeContent: (Screen) -> Unit = {}
+	onChangeContent: (Screen, Int) -> Unit
 ) {
 	Text(
 		text = stringResource(R.string.select_a_city),
@@ -80,7 +80,7 @@ fun EmptyMainContent(
 			)
 			.fillMaxWidth(),
 		shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
-		onClick = { onChangeContent(Screen.SEL_CITY) }
+		onClick = { onChangeContent(Screen.SEL_CITY, 0) }
 	) {
 		Text(
 			text = stringResource(R.string.select_city),
@@ -238,7 +238,8 @@ fun StartContentPreview() {
 								weatherIcon = "01d",
 							),
 						)
-					)
+					),
+					onChangeContent = { a, b -> }
 				)
 			}
 		}

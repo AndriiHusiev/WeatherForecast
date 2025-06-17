@@ -61,7 +61,7 @@ import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitySelectionContent(
-	onItemClick: (NetworkCityInfo) -> Unit = {},
+	onCityItemClick: (NetworkCityInfo) -> Unit = {},
 	onChangeContent: (Screen) -> Unit = {},
 	searchViewModel: CitySelectionViewModel = hiltViewModel(),
 ) {
@@ -69,33 +69,35 @@ fun CitySelectionContent(
 	val searchQuery by searchViewModel.searchQuery.collectAsStateWithLifecycle()
 	val searchResult by searchViewModel.searchResult.collectAsStateWithLifecycle()
 	
-	SearchBar(
-		searchQuery = searchQuery,
-		onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
-		onSearchTriggered = searchViewModel::onSearchTriggered,
-	)
-	
-	when (val searchState = searchResult) {
-		SearchResultUiState.EmptyQuery -> Unit
+	Column(modifier = Modifier.fillMaxWidth()) {
+		SearchBar(
+			searchQuery = searchQuery,
+			onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
+			onSearchTriggered = searchViewModel::onSearchTriggered,
+		)
 		
-		SearchResultUiState.LoadFailed -> FailScreen(modifier = Modifier.fillMaxSize())
-		
-		SearchResultUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-		
-		is SearchResultUiState.Success -> {
-			if (searchState.isEmpty()) {
-				EmptySearchResultBody(searchQuery)
-			} else {
-				LazyColumn(state = state) {
-					items(searchState.cities) { city ->
-						SearchListItem(
-							cityInfo = city,
-							onClick = {
-								onItemClick(it)
-								searchViewModel.onSearchQueryChanged("")
-								searchViewModel.clearSearchResult()
-							}
-						)
+		when (val searchState = searchResult) {
+			SearchResultUiState.EmptyQuery -> Unit
+			
+			SearchResultUiState.LoadFailed -> FailScreen(modifier = Modifier.fillMaxSize())
+			
+			SearchResultUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+			
+			is SearchResultUiState.Success -> {
+				if (searchState.isEmpty()) {
+					EmptySearchResultBody(searchQuery)
+				} else {
+					LazyColumn(state = state) {
+						items(searchState.cities) { city ->
+							SearchListItem(
+								cityInfo = city,
+								onClick = {
+									onCityItemClick(it)
+									searchViewModel.onSearchQueryChanged("")
+									searchViewModel.clearSearchResult()
+								}
+							)
+						}
 					}
 				}
 			}

@@ -22,14 +22,27 @@ fun WeatherCard(
 		containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.2f)),
 	elevation: CardElevation = CardDefaults.cardElevation(),
 	border: BorderStroke? = null,
+	enabled: Boolean = false,
+	onClick: () -> Unit = {},
 	content: @Composable (ColumnScope.() -> Unit)
 ) {
-	Card(
-		modifier = modifier,
-		shape = shape,
-		colors = colors,
-		elevation = elevation,
-		border = border,
-		content = content
-	)
+	if (enabled)
+		Card(
+			onClick = onClick,
+			modifier = modifier,
+			shape = shape,
+			colors = colors,
+			elevation = elevation,
+			border = border,
+			content = content
+		)
+	else
+		Card(
+			modifier = modifier,
+			shape = shape,
+			colors = colors,
+			elevation = elevation,
+			border = border,
+			content = content
+		)
 }

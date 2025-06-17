@@ -52,6 +52,7 @@ data class ForecastBriefInfo(
 data class ForecastWeatherInfo(
 	val index: Int = -1,
 	val date: String = NO_DATA,
+	val dateWeekDay: String = NO_DATA,
 	val time: String = NO_DATA,
 	val temperature: String = NO_DATA,
 	val feelsLike: String = NO_DATA,
@@ -70,5 +71,6 @@ data class ForecastWeatherInfo(
 	
 	val cloudiness: String = NO_DATA,
 	val rain: String = NO_DATA,
-	val snow: String = NO_DATA
+	val snow: String = NO_DATA,
+	val pop: String = NO_DATA,
 )

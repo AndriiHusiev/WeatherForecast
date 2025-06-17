@@ -2,7 +2,6 @@ package com.husiev.weather.forecast.composables.main
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -92,7 +91,7 @@ fun TodaySunBlock(
 			valueRange = sunrise..sunset,
 			enabled = false,
 			thumb = {
-				Image(
+				Icon(
 					imageVector = Icons.Filled.WbSunny,
 					contentDescription = "Custom Slider Thumb",
 					modifier = Modifier.size(32.dp)

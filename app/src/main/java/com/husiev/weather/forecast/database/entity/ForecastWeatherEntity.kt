@@ -107,6 +107,9 @@ fun List<ForecastWeatherEntity>.asFullModel(): List<ForecastWeatherInfo> {
 			date = SimpleDateFormat(
 				"dd.MM",
 				Locale.getDefault()).format(item.datetime * 1000L),
+			dateWeekDay = SimpleDateFormat(
+				"EEE, d MMMM",
+				Locale.getDefault()).format(item.datetime * 1000L),
 			time = SimpleDateFormat(
 				"HH:mm",
 				Locale.getDefault()).format(item.datetime * 1000L),
@@ -125,9 +128,10 @@ fun List<ForecastWeatherEntity>.asFullModel(): List<ForecastWeatherInfo> {
 			windDeg = item.windDeg?.toFloat(),
 			windDir = item.windDeg.degToDir(),
 			windGust = item.windGust?.toString() ?: NO_DATA,
-			cloudiness = item.cloudiness?.let { ", $it%" } ?: NO_DATA,
-			rain = item.rain?.let { ", $it" } ?: NO_DATA,
-			snow = item.snow?.let { ", $it" } ?: NO_DATA
+			cloudiness = item.cloudiness?.let { "$it" } ?: "0",
+			rain = item.rain?.let { "$it" } ?: NO_DATA,
+			snow = item.snow?.let { "$it" } ?: NO_DATA,
+			pop = String.format(Locale.getDefault(), "%d", (item.pop * 100).roundToInt()),
 		))
 	}
 	

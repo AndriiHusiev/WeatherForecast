@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +31,7 @@ import java.util.Locale
 @Composable
 fun ForecastDaysBlock(
 	forecast: List<ForecastBriefInfo>,
-	onClick: () -> Unit = {},
+	onClick: (Int) -> Unit = {},
 ) {
 	WeatherCard(modifier = Modifier.fillMaxWidth()) {
 		Column(
@@ -44,7 +46,7 @@ fun ForecastDaysBlock(
 					dayOfWeek = forecast[i].dayOfWeek,
 					weatherIcon = forecast[i].weatherIcon,
 					temperatureRange = forecast[i].temperatureRange,
-					onClick = onClick
+					onClick = { onClick(i) },
 				)
 			}
 		}
@@ -63,7 +65,7 @@ fun SingleDayHeaderRow(
 	Row(
 		modifier = modifier
 			.fillMaxWidth()
-			.clickable { onClick },
+			.clickable { onClick() },
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.SpaceBetween
 	) {
@@ -78,7 +80,7 @@ fun SingleDayHeaderRow(
 			style = MaterialTheme.typography.bodyMedium
 		)
 		Image(
-			modifier = Modifier.requiredSize(32.dp).weight(1f),
+			modifier = Modifier.requiredSize(32.dp).weight(0.5f),
 			painter = painterResource(codeToResId(weatherIcon)),
 			contentDescription = null,
 		)
@@ -87,15 +89,18 @@ fun SingleDayHeaderRow(
 			modifier = Modifier.weight(0.8f),
 			style = MaterialTheme.typography.bodyMedium
 		)
-		Image(
-			modifier = Modifier.requiredSize(32.dp).weight(0.5f),
+		Icon(
+			modifier = Modifier.requiredSize(24.dp).weight(0.4f),
 			imageVector = Icons.Filled.ChevronRight,
 			contentDescription = null,
+			tint = Color.White,
 		)
 	}
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, heightDp = 640, widthDp = 360)
+@Preview(showBackground = true, heightDp = 1000, widthDp = 448)
 @Composable
 fun ForecastDaysBlockPreview() {
 	WeatherForecastTheme {

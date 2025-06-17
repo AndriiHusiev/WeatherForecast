@@ -19,11 +19,14 @@
     <string name="hpa">hPa</string>
     <string name="humidity">Humidity</string>
     <string name="visibility">Visibility</string>
+    <string name="cloudiness">Cloudiness</string>
+    <string name="precipitation">Precipitation</string>
     <string name="km">km</string>
     <string name="wind">Wind</string>
     <string name="wind_gust">Gust</string>
     <string name="wind_dir">Direction</string>
     <string name="meter_sec">m/sec</string>
+    <string name="mm">mm</string>
     <string name="mm_h">mm/h</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>

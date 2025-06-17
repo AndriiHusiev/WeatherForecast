@@ -17,11 +17,14 @@
     <string name="hpa">гПа</string>
     <string name="humidity">Влажность</string>
     <string name="visibility">Видимость</string>
+    <string name="cloudiness">Облачность</string>
+    <string name="precipitation">Осадки</string>
     <string name="km">км</string>
     <string name="wind">Ветер</string>
     <string name="wind_gust">Порывы</string>
     <string name="wind_dir">Направление</string>
     <string name="meter_sec">м/с</string>
+    <string name="mm">мм</string>
     <string name="mm_h">мм/ч</string>
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>

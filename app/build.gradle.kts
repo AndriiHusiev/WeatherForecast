@@ -15,8 +15,8 @@ android {
 		applicationId = "com.husiev.weather.forecast"
 		minSdk = 24
 		targetSdk = 35
-		versionCode = 6
-		versionName = "0.5"
+		versionCode = 7
+		versionName = "0.6"
 		
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
@@ -57,6 +57,7 @@ dependencies {
 	implementation(libs.androidx.material.icons.core.android)
 	implementation(libs.androidx.material.icons.extended.android)
 	implementation(libs.androidx.material.icons.extended)
+	implementation(libs.androidx.navigation.compose)
 	// Hilt
 	implementation(libs.hilt.android)
 	implementation(libs.androidx.hilt.navigation.compose)

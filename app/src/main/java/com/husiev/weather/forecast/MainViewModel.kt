@@ -3,7 +3,6 @@ package com.husiev.weather.forecast
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.husiev.weather.forecast.composables.Screen
 import com.husiev.weather.forecast.composables.main.CityInfo
 import com.husiev.weather.forecast.composables.main.WeatherInfo
 import com.husiev.weather.forecast.database.DatabaseRepository
@@ -16,10 +15,8 @@ import com.husiev.weather.forecast.network.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
@@ -39,13 +36,6 @@ class MainViewModel @Inject constructor(
 		viewModelScope.launch(Dispatchers.IO) {
 			loadWeather()
 		}
-	}
-	
-	private var _screen: MutableStateFlow<Screen> = MutableStateFlow<Screen>(Screen.MAIN)
-	val screen: StateFlow<Screen> = _screen.asStateFlow()
-	
-	fun onChangeContent(newScreen: Screen) {
-		_screen.value = newScreen
 	}
 	
 	val weather: StateFlow<WeatherInfo> =

@@ -1,12 +1,10 @@
-package com.husiev.weather.forecast.composables
+package com.husiev.weather.forecast.composables.appbar
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,27 +26,20 @@ import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-	screen: Screen,
+	title: String,
 	modifier: Modifier = Modifier,
-	name: String = "",
+	navigationIcon: ImageVector? = null,
 	actionIcon: ImageVector? = null,
-	navigationIconContentDescription: String? = stringResource(R.string.back),
+	navigationIconContentDescription: String? = null,
 	actionIconContentDescription: String? = null,
 	colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
 	onNavigationClick: () -> Unit = {},
 	onActionClick: () -> Unit = {},
 ) {
-	var header = if (name.isEmpty()) stringResource(R.string.app_name) else name
-	var navigationIcon: ImageVector? = Icons.AutoMirrored.Filled.ArrowBack
-	when(screen) {
-		Screen.MAIN -> navigationIcon = Icons.Filled.Search
-		Screen.SEL_CITY -> header = stringResource(R.string.select_city)
-	}
-	
 	CenterAlignedTopAppBar(
 		title = {
 			Text(
-				text = header,
+				text = title,
 				overflow = TextOverflow.Ellipsis,
 				maxLines = 1,
 			)
@@ -85,17 +76,22 @@ fun TopAppBar(
 @Composable
 private fun DATopAppBarPreview() {
 	WeatherForecastTheme {
-		Column {
+		Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))) {
 			TopAppBar(
-				name = "Kyiv",
-				screen = Screen.MAIN,
+				title = "Kyiv",
 			)
-			Spacer(Modifier.padding(vertical = dimensionResource(R.dimen.padding_small)))
 			TopAppBar(
+				title = stringResource(R.string.select_city),
+				navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
 				navigationIconContentDescription = "Navigation icon",
 				actionIcon = Icons.Filled.MoreVert,
 				actionIconContentDescription = "Action icon",
-				screen = Screen.SEL_CITY,
+			)
+			TopAppBar(
+				title = "May 12",
+				navigationIconContentDescription = "Navigation icon",
+				actionIcon = Icons.Filled.MoreVert,
+				actionIconContentDescription = "Action icon",
 			)
 		}
 	}

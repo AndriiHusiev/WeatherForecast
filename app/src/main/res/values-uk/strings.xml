@@ -17,11 +17,14 @@
     <string name="hpa">гПа</string>
     <string name="humidity">Вологість</string>
     <string name="visibility">Видимість</string>
+    <string name="cloudiness">Хмарність</string>
+    <string name="precipitation">"Опади"</string>
     <string name="km">км</string>
     <string name="wind">Вітер</string>
     <string name="wind_gust">Пориви</string>
     <string name="wind_dir">Напрям</string>
     <string name="meter_sec">м/с</string>
+    <string name="mm">мм</string>
     <string name="mm_h">мм/год</string>
     <string name="sunrise">Схід сонця</string>
     <string name="sunset">Захід сонця</string>
