@@ -1,5 +1,6 @@
 package com.husiev.weather.forecast.network
 
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -18,7 +19,7 @@ interface NetworkApiService {
 		@Query("q") city: String,
 		@Query("limit") limit: Int = 5,
 		@Query("appid") appId: String = "a0379a533a0c2397d01c5dfb7386e2e2",
-	): List<NetworkCityInfo>
+	): Response<List<NetworkCityInfo>>
 	
 	/**
 	 * Returns current weather data for any location on Earth.

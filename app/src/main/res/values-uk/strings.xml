@@ -10,7 +10,11 @@
     <string name="description_loading_content">Loading Content</string>
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Щось пішло не так: виникла помилка під час завантаження списка міст."</string>
-    <string name="search_loading_error">Не вдалося завантажити список міст:</string>
+    <string name="search_loading_error">Не вдалося завантажити список міст</string>
+    <string name="error_code">Код помилки:</string>
+    <string name="error_message">Повідомлення про помилку:</string>
+    <string name="empty_query">Пошуковий запит не може бути порожнім</string>
+    <string name="invalid_query">Неприпустимий пошуковий запит. Спробуйте інше</string>
 
     <string name="feels_like">Відчувається як</string>
     <string name="pressure">Тиск</string>

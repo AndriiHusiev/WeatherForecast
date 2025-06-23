@@ -14,35 +14,46 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.dimensionResource
 import com.husiev.weather.forecast.R
 
+private const val ALPHA = 0.2f
+
 @Composable
 fun WeatherCard(
 	modifier: Modifier = Modifier,
 	shape: Shape = RoundedCornerShape(dimensionResource(R.dimen.padding_medium)),
 	colors: CardColors = CardDefaults.cardColors(
-		containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.2f)),
+		containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(ALPHA)),
 	elevation: CardElevation = CardDefaults.cardElevation(),
 	border: BorderStroke? = null,
-	enabled: Boolean = false,
-	onClick: () -> Unit = {},
 	content: @Composable (ColumnScope.() -> Unit)
 ) {
-	if (enabled)
-		Card(
-			onClick = onClick,
-			modifier = modifier,
-			shape = shape,
-			colors = colors,
-			elevation = elevation,
-			border = border,
-			content = content
-		)
-	else
-		Card(
-			modifier = modifier,
-			shape = shape,
-			colors = colors,
-			elevation = elevation,
-			border = border,
-			content = content
-		)
+	Card(
+		modifier = modifier,
+		shape = shape,
+		colors = colors,
+		elevation = elevation,
+		border = border,
+		content = content
+	)
+}
+
+@Composable
+fun WeatherCard(
+	onClick: () -> Unit,
+	modifier: Modifier = Modifier,
+	shape: Shape = RoundedCornerShape(dimensionResource(R.dimen.padding_medium)),
+	colors: CardColors = CardDefaults.cardColors(
+		containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(ALPHA)),
+	elevation: CardElevation = CardDefaults.cardElevation(),
+	border: BorderStroke? = null,
+	content: @Composable (ColumnScope.() -> Unit)
+) {
+	Card(
+		onClick = onClick,
+		modifier = modifier,
+		shape = shape,
+		colors = colors,
+		elevation = elevation,
+		border = border,
+		content = content
+	)
 }

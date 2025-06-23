@@ -10,7 +10,11 @@
     <string name="description_loading_content">Loading Content</string>
     <string name="description_loading_failed">Loading Failed</string>
     <string name="search_loading_failed">Something went wrong: failed loading cities list."</string>
-    <string name="search_loading_error">Failed to load cities list:</string>
+    <string name="search_loading_error">Failed to load cities list</string>
+    <string name="error_code">Error code:</string>
+    <string name="error_message">Error message:</string>
+    <string name="empty_query">Search query cannot be empty</string>
+    <string name="invalid_query">Invalid search query. Try another one</string>
     <string name="show_less" translatable="false">Show less</string>
     <string name="show_more" translatable="false">Show more</string>
 

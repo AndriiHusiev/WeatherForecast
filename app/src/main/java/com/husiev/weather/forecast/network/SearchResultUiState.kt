@@ -11,7 +11,10 @@ sealed interface SearchResultUiState {
 	 */
 	object EmptyQuery : SearchResultUiState
 	
-	object LoadFailed : SearchResultUiState
+	data class LoadFailed(
+		val cod: String? = null,
+		val message: String?
+	) : SearchResultUiState
 	
 	data class Success(
 		val cities: List<NetworkCityInfo> = emptyList<NetworkCityInfo>(),

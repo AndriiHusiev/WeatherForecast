@@ -11,6 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -79,9 +80,13 @@ fun CitySelectionContent(
 		when (val searchState = searchResult) {
 			SearchResultUiState.EmptyQuery -> Unit
 			
-			SearchResultUiState.LoadFailed -> FailScreen(modifier = Modifier.fillMaxSize())
-			
 			SearchResultUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+			
+			is SearchResultUiState.LoadFailed -> FailScreen(
+				modifier = Modifier.fillMaxSize(),
+				code = searchState.cod,
+				message = searchState.message,
+			)
 			
 			is SearchResultUiState.Success -> {
 				if (searchState.isEmpty()) {
@@ -222,7 +227,11 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FailScreen(modifier: Modifier = Modifier) {
+fun FailScreen(
+	modifier: Modifier = Modifier,
+	code: String? = null,
+	message: String? = null,
+) {
 	Column(
 		modifier = modifier,
 		verticalArrangement = Arrangement.Center,
@@ -232,14 +241,29 @@ fun FailScreen(modifier: Modifier = Modifier) {
 			painter = painterResource(R.drawable.ic_connection_error),
 			contentDescription = stringResource(R.string.description_loading_failed)
 		)
+		
+		Spacer(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_big)))
+		
 		Text(
-			text = stringResource(R.string.search_loading_failed),
-			modifier = Modifier.padding(
-				horizontal = dimensionResource(R.dimen.padding_extra_large),
-				vertical = dimensionResource(R.dimen.padding_big)
-			),
+			text = stringResource(R.string.search_loading_error),
 			textAlign = TextAlign.Center
 		)
+	
+		code?.let {
+			Text(
+				text = stringResource(R.string.error_code) + " $it",
+				textAlign = TextAlign.Center
+			)
+		}
+		
+		message?.let {
+			Text(
+				text = stringResource(R.string.error_message) + " $it",
+				modifier = Modifier.padding(
+					horizontal = dimensionResource(R.dimen.padding_extra_large)),
+				textAlign = TextAlign.Center
+			)
+		}
 	}
 }
 

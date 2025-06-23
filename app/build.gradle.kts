@@ -15,8 +15,8 @@ android {
 		applicationId = "com.husiev.weather.forecast"
 		minSdk = 24
 		targetSdk = 35
-		versionCode = 7
-		versionName = "0.6"
+		versionCode = 8
+		versionName = "0.6.1"
 		
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
@@ -62,6 +62,7 @@ dependencies {
 	implementation(libs.hilt.android)
 	implementation(libs.androidx.hilt.navigation.compose)
 	implementation(libs.androidx.hilt.work)
+	implementation(libs.gson)
 	ksp (libs.hilt.compiler)
 	ksp (libs.androidx.hilt.compiler)
 	// Retrofit

@@ -88,7 +88,6 @@ fun ThreeHoursRow(
 					stiffness = Spring.StiffnessLow
 				)
 			),
-		enabled = true,
 		onClick = { expanded = !expanded },
 	) {
 		Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {

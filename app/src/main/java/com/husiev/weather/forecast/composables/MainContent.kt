@@ -40,7 +40,7 @@ fun MainContent(
 	onChangeContent: (Screen, Int) -> Unit,
 ) {
 	if (weather.cityInfo == null)
-		EmptyMainContent(onChangeContent)
+		EmptyMainContent()
 	else {
 		Column(modifier = Modifier
 			.fillMaxWidth()
@@ -60,9 +60,7 @@ fun MainContent(
 }
 
 @Composable
-fun EmptyMainContent(
-	onChangeContent: (Screen, Int) -> Unit
-) {
+fun EmptyMainContent() {
 	Text(
 		text = stringResource(R.string.select_a_city),
 		style = MaterialTheme.typography.bodyLarge,
@@ -72,22 +70,6 @@ fun EmptyMainContent(
 			vertical = dimensionResource(R.dimen.padding_large)
 		),
 	)
-	Button(
-		modifier = Modifier
-			.padding(
-				horizontal = dimensionResource(R.dimen.padding_extra_large),
-				vertical = dimensionResource(R.dimen.padding_big)
-			)
-			.fillMaxWidth(),
-		shape = RoundedCornerShape(dimensionResource(R.dimen.padding_small)),
-		onClick = { onChangeContent(Screen.SEL_CITY, 0) }
-	) {
-		Text(
-			text = stringResource(R.string.select_city),
-			modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_small)),
-			style = MaterialTheme.typography.titleLarge,
-		)
-	}
 }
 
 @Preview(showBackground = true)
@@ -96,6 +78,7 @@ fun StartContentPreview() {
 	WeatherForecastTheme {
 		Surface {
 			Column {
+				EmptyMainContent()
 				MainContent(
 					WeatherInfo(
 						CityInfo(0, 0f, 0f, "UA", null, "Kyiv"),

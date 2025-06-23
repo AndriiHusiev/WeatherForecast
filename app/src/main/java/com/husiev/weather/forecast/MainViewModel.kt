@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(
 	@ApplicationContext private val context: Context,
 ): ViewModel() {
 	
-	init {
+	fun refreshDataOnResume() {
 		viewModelScope.launch(Dispatchers.IO) {
 			loadWeather()
 		}
