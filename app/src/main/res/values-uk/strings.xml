@@ -13,8 +13,12 @@
     <string name="search_loading_error">Не вдалося завантажити список міст</string>
     <string name="error_code">Код помилки:</string>
     <string name="error_message">Повідомлення про помилку:</string>
+    <string name="list_of_cities">Список міст</string>
     <string name="empty_query">Пошуковий запит не може бути порожнім</string>
     <string name="invalid_query">Неприпустимий пошуковий запит. Спробуйте інше</string>
+    <string name="show_less">Показати менше</string>
+    <string name="show_more">Показати більше</string>
+    <string name="add_new_city">Додати нове місто</string>
 
     <string name="feels_like">Відчувається як</string>
     <string name="pressure">Тиск</string>

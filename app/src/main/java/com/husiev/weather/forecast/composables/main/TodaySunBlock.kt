@@ -30,18 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.husiev.weather.forecast.R
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodaySunBlock(
 	curWeather: CurrentWeatherInfo
 ) {
-	val sunrise = curWeather.sunrise.toFloat() * 1000f
-	val sunset = curWeather.sunset.toFloat() * 1000f
-	val sliderPosition = remember { Animatable(sunrise) }
+	val sliderPosition = remember { Animatable(curWeather.sunrise) }
 	LaunchedEffect(key1 = curWeather, block = {
 		sliderPosition.animateTo(Calendar.getInstance().time.time.toFloat(), tween(3000))
 	})
@@ -88,12 +84,12 @@ fun TodaySunBlock(
 		Slider(
 			value = sliderPosition.value,
 			onValueChange = { },
-			valueRange = sunrise..sunset,
+			valueRange = curWeather.sunrise..curWeather.sunset,
 			enabled = false,
 			thumb = {
 				Icon(
 					imageVector = Icons.Filled.WbSunny,
-					contentDescription = "Custom Slider Thumb",
+					contentDescription = null,
 					modifier = Modifier.size(32.dp)
 				)
 			}
@@ -112,18 +108,12 @@ fun TodaySunBlock(
 				horizontalArrangement = Arrangement.SpaceBetween
 			) {
 				Text(
-					text = SimpleDateFormat(
-//							"dd.MM.yyyy HH:mm",
-						"HH:mm",
-						Locale.getDefault()).format(curWeather.sunrise * 1000L),
+					text = curWeather.sunriseTime,
 					fontSize = 24.sp,
 					fontWeight = FontWeight.Bold,
 				)
 				Text(
-					text = SimpleDateFormat(
-//							"dd.MM.yyyy HH:mm",
-						"HH:mm",
-						Locale.getDefault()).format(curWeather.sunset * 1000L),
+					text = curWeather.sunsetTime,
 					fontSize = 24.sp,
 					fontWeight = FontWeight.Bold,
 				)
@@ -140,14 +130,18 @@ fun TodaySunBlockPreview() {
 			Column(Modifier.padding(16.dp)) {
 				TodaySunBlock(
 					CurrentWeatherInfo(
-						sunrise = 1749260917,
-						sunset = 1749318859,
+						sunrise = 1749260917000f,
+						sunset = 1749318859000f,
+						sunriseTime = "04:05",
+						sunsetTime = "20:46",
 					)
 				)
 				TodaySunBlock(
 					CurrentWeatherInfo(
-						sunrise = 1749329164,
-						sunset = 1749382865,
+						sunrise = 1749329164000f,
+						sunset = 1749382865000f,
+						sunriseTime = "04:05",
+						sunsetTime = "20:46",
 					)
 				)
 			}

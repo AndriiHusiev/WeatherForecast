@@ -6,6 +6,7 @@ import com.husiev.weather.forecast.database.dao.CitiesDao
 import com.husiev.weather.forecast.database.dao.CurrentWeatherDao
 import com.husiev.weather.forecast.database.dao.ForecastWeatherDao
 import com.husiev.weather.forecast.database.dao.LocalNamesDao
+import com.husiev.weather.forecast.database.dao.PreviewWeatherDao
 import com.husiev.weather.forecast.database.entity.CityEntity
 import com.husiev.weather.forecast.database.entity.CurrentWeatherEntity
 import com.husiev.weather.forecast.database.entity.ForecastWeatherEntity
@@ -27,5 +28,6 @@ abstract class AppDatabase : RoomDatabase() {
 	abstract fun localNamesDao(): LocalNamesDao
 	abstract fun currentWeatherDao(): CurrentWeatherDao
 	abstract fun forecastWeatherDao(): ForecastWeatherDao
+	abstract fun previewWeatherDao(): PreviewWeatherDao
 	
 }

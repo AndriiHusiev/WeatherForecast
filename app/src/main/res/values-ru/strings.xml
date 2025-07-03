@@ -13,8 +13,12 @@
     <string name="search_loading_error">Не удалось загрузить список городов</string>
     <string name="error_code">Код ошибки:</string>
     <string name="error_message">Сообщение об ошибке:</string>
+    <string name="list_of_cities">Список городов</string>
     <string name="empty_query">Поисковый запрос не может быть пустым</string>
     <string name="invalid_query">Недопустимый поисковый запрос. Попробуйте другое</string>
+    <string name="show_less">Показать меньше</string>
+    <string name="show_more">Показать больше</string>
+    <string name="add_new_city">Добавить новый город</string>
 
     <string name="feels_like">Чувствуется как</string>
     <string name="pressure">Давление</string>

@@ -17,6 +17,7 @@ data class CityEntity(
 	val lon: Float,
 	val country: String,
 	val state: String? = null,
+	val selected: Boolean,
 )
 
 fun CityEntity.asExternalModel(name: String): CityInfo {

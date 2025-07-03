@@ -96,13 +96,14 @@ fun NetworkTodayInfo.asEntity(cityId: Int) = CurrentWeatherEntity(
 	snow = this.snow?.oneHour
 )
 
-fun NetworkCityInfo.asEntity(id: Int = 0) = CityEntity(
+fun NetworkCityInfo.asEntity(id: Int = 0, selected: Boolean = false) = CityEntity(
 	id = id,
 	name = this.name,
 	lat = this.lat,
 	lon = this.lon,
 	country = this.country,
 	state = this.state,
+	selected = selected,
 )
 
 fun NetworkCityInfo.asLocalNamesEntity(cityId: Int): List<LocalNamesEntity> {

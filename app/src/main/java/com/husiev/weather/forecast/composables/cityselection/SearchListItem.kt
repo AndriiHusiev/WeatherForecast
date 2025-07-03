@@ -1,4 +1,4 @@
-package com.husiev.weather.forecast.composables
+package com.husiev.weather.forecast.composables.cityselection
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.husiev.weather.forecast.network.NetworkCityInfo
 import com.husiev.weather.forecast.R
+import com.husiev.weather.forecast.network.NetworkCityInfo
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 
 @Composable
@@ -43,11 +43,7 @@ fun SearchListItem(
 				maxLines = 1,
 			)
 		}
-		HorizontalDivider(
-			modifier = Modifier.padding(
-				horizontal = dimensionResource(R.dimen.padding_medium)
-			),
-		)
+		HorizontalDivider(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)))
 	}
 }
 

@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.husiev.weather.forecast.composables.Screen
 import com.husiev.weather.forecast.composables.main.ForecastWeatherInfo
 import com.husiev.weather.forecast.composables.main.SelectedDayContent
 
@@ -19,8 +18,9 @@ fun NavController.navigateToSelDay(singleArg: Int, navOptions: NavOptions? = nul
 }
 
 fun NavGraphBuilder.dayScreen(
+	title: String,
 	forecast: List<ForecastWeatherInfo>,
-	onChangeContent: (Screen) -> Unit,
+	onBack: () -> Unit,
 ) {
 	composable(
 		route = dayFullNavRoute,
@@ -29,8 +29,9 @@ fun NavGraphBuilder.dayScreen(
 		val singleArg = navBackStackEntry.arguments?.getInt(DAY_SINGLE_ARG)
 		SelectedDayContent(
 			singleDay = singleArg,
+			title = title,
 			forecast = forecast,
-			onChangeContent = onChangeContent
+			onBack = onBack
 		)
 	}
 }

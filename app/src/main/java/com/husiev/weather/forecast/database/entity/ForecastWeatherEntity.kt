@@ -84,13 +84,12 @@ fun List<ForecastWeatherEntity>.asBriefModel(context: Context): List<ForecastBri
 		val minTemp = dayList.minOf { it.temperature }.roundToInt()
 		
 		list.add(ForecastBriefInfo(
+			index = i,
 			date = SimpleDateFormat("dd.MM", Locale.getDefault()).format(dayList[0].datetime * 1000L),
 			dayOfWeek = dayOfWeek,
 			weatherIcon = weatherIcon,
 			temperatureRange = "$minTemp° / $maxTemp°"
 		))
-		dayList.forEach {
-		}
 	}
 	
 	return list

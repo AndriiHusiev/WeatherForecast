@@ -1,7 +1,6 @@
 package com.husiev.weather.forecast.composables.cityselection
 
 import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -22,12 +21,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -53,8 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.husiev.weather.forecast.R
-import com.husiev.weather.forecast.composables.Screen
-import com.husiev.weather.forecast.composables.SearchListItem
+import com.husiev.weather.forecast.composables.appbar.TopAppBar
 import com.husiev.weather.forecast.network.NetworkCityInfo
 import com.husiev.weather.forecast.network.SearchResultUiState
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
@@ -63,56 +63,65 @@ import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 @Composable
 fun CitySelectionContent(
 	onCityItemClick: (NetworkCityInfo) -> Unit = {},
-	onChangeContent: (Screen) -> Unit = {},
+	onBack: () -> Unit = {},
 	searchViewModel: CitySelectionViewModel = hiltViewModel(),
 ) {
 	val state = rememberLazyListState()
 	val searchQuery by searchViewModel.searchQuery.collectAsStateWithLifecycle()
 	val searchResult by searchViewModel.searchResult.collectAsStateWithLifecycle()
 	
-	Column(modifier = Modifier.fillMaxWidth()) {
-		SearchBar(
-			searchQuery = searchQuery,
-			onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
-			onSearchTriggered = searchViewModel::onSearchTriggered,
-		)
-		
-		when (val searchState = searchResult) {
-			SearchResultUiState.EmptyQuery -> Unit
-			
-			SearchResultUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-			
-			is SearchResultUiState.LoadFailed -> FailScreen(
-				modifier = Modifier.fillMaxSize(),
-				code = searchState.cod,
-				message = searchState.message,
+	Scaffold(
+		topBar = {
+			TopAppBar(
+				title = stringResource(R.string.select_city),
+				navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+				onNavigationClick = { onBack() },
+			)
+		}
+	) { innerPadding ->
+		Column(
+			modifier = Modifier
+				.fillMaxSize()
+				.padding(innerPadding)
+		) {
+			SearchBar(
+				searchQuery = searchQuery,
+				onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
+				onSearchTriggered = searchViewModel::onSearchTriggered,
 			)
 			
-			is SearchResultUiState.Success -> {
-				if (searchState.isEmpty()) {
-					EmptySearchResultBody(searchQuery)
-				} else {
-					LazyColumn(state = state) {
-						items(searchState.cities) { city ->
-							SearchListItem(
-								cityInfo = city,
-								onClick = {
-									onCityItemClick(it)
-									searchViewModel.onSearchQueryChanged("")
-									searchViewModel.clearSearchResult()
-								}
-							)
+			when (val searchState = searchResult) {
+				SearchResultUiState.EmptyQuery -> Unit
+				
+				SearchResultUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+				
+				is SearchResultUiState.LoadFailed -> FailScreen(
+					modifier = Modifier.fillMaxSize(),
+					code = searchState.cod,
+					message = searchState.message,
+				)
+				
+				is SearchResultUiState.Success -> {
+					if (searchState.isEmpty()) {
+						EmptySearchResultBody(searchQuery)
+					} else {
+						LazyColumn(state = state) {
+							items(searchState.cities) { city ->
+								SearchListItem(
+									cityInfo = city,
+									onClick = {
+										onCityItemClick(it)
+										searchViewModel.onSearchQueryChanged("")
+										searchViewModel.clearSearchResult()
+									}
+								)
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-	
-	BackHandler(
-		enabled = true,
-		onBack = { onChangeContent(Screen.MAIN) }
-	)
 }
 
 @Composable

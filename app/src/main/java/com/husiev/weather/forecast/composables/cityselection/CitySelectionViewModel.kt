@@ -18,10 +18,10 @@ import javax.inject.Inject
 @HiltViewModel
 class CitySelectionViewModel @Inject constructor(
 	private val networkRepository: NetworkRepository,
-	@ApplicationContext private val context: Context,
+	@param:ApplicationContext private val context: Context,
 ): ViewModel() {
 	
-	private val _searchQuery = MutableStateFlow<String>("")
+	private val _searchQuery = MutableStateFlow("")
 	val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 	
 	private val _searchResult = MutableStateFlow<SearchResultUiState>(SearchResultUiState.EmptyQuery)

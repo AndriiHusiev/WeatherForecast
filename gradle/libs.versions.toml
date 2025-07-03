@@ -1,15 +1,15 @@
 [versions]
-agp = "8.10.1"
-kotlin = "2.0.21"
+agp = "8.11.0"
+kotlin = "2.2.0"
 coreKtx = "1.16.0"
-daggerHilt = "2.49"
-devtoolsKsp = "2.0.21-1.0.28"
+daggerHilt = "2.56.2"
+devtoolsKsp = "2.2.0-2.0.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
-composeBom = "2025.06.00"
+composeBom = "2025.06.01"
 material = "1.7.8"
 hiltAndroid = "2.56.2"
 hiltNavigationCompose = "1.2.0"
@@ -18,8 +18,8 @@ kotlinxSerializationJson = "1.8.1"
 okhttp = "4.12.0"
 retrofit = "3.0.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
-roomRuntime = "2.7.1"
-workRuntimeKtx = "2.10.1"
+roomRuntime = "2.7.2"
+workRuntimeKtx = "2.10.2"
 navigationCompose = "2.9.0"
 gson = "2.13.1"
 
@@ -61,6 +61,7 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+androidx-room = { id = "androidx.room", version.ref = "roomRuntime" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolsKsp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
@@ -5,18 +7,19 @@ plugins {
 	alias(libs.plugins.devtools.ksp)
 	alias(libs.plugins.dagger.hilt)
 	alias(libs.plugins.kotlin.serialization)
+	alias(libs.plugins.androidx.room)
 }
 
 android {
 	namespace = "com.husiev.weather.forecast"
-	compileSdk = 35
+	compileSdk = 36
 	
 	defaultConfig {
 		applicationId = "com.husiev.weather.forecast"
-		minSdk = 24
-		targetSdk = 35
-		versionCode = 8
-		versionName = "0.6.1"
+		minSdk = 26
+		targetSdk = 36
+		versionCode = 9
+		versionName = "0.7"
 		
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
@@ -34,12 +37,19 @@ android {
 		sourceCompatibility = JavaVersion.VERSION_11
 		targetCompatibility = JavaVersion.VERSION_11
 	}
-	kotlinOptions {
-		jvmTarget = "11"
-	}
 	buildFeatures {
 		compose = true
 	}
+}
+
+kotlin {
+	compilerOptions {
+		jvmTarget.set(JvmTarget.JVM_11)
+	}
+}
+
+room {
+	schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {

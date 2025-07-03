@@ -1,6 +1,5 @@
 package com.husiev.weather.forecast.composables.main
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -18,10 +17,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -43,34 +45,42 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.husiev.weather.forecast.R
-import com.husiev.weather.forecast.composables.Screen
+import com.husiev.weather.forecast.composables.appbar.TopAppBar
 import com.husiev.weather.forecast.database.entity.codeToResId
 import com.husiev.weather.forecast.ui.theme.WeatherForecastTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectedDayContent(
 	singleDay: Int?,
+	title: String,
 	forecast: List<ForecastWeatherInfo> = emptyList(),
-	onChangeContent: (Screen) -> Unit = {},
+	onBack: () -> Unit = {},
 ) {
 	val day = forecast.filter { it.index == singleDay }
 	
-	Column(
-		modifier = Modifier
-			.fillMaxWidth()
-			.padding(dimensionResource(R.dimen.padding_medium))
-			.verticalScroll(rememberScrollState()),
-		verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
-	) {
-		repeat(day.size) { i ->
-			ThreeHoursRow(day[i])
+	Scaffold(
+		topBar = {
+			TopAppBar(
+				title = title,
+				navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+				onNavigationClick = onBack,
+			)
+		}
+	) { innerPadding ->
+		Column(
+			modifier = Modifier
+				.fillMaxWidth()
+				.padding(innerPadding)
+				.padding(horizontal = dimensionResource(R.dimen.padding_medium))
+				.verticalScroll(rememberScrollState()),
+			verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+		) {
+			repeat(day.size) { i ->
+				ThreeHoursRow(day[i])
+			}
 		}
 	}
-	
-	BackHandler(
-		enabled = true,
-		onBack = { onChangeContent(Screen.MAIN) }
-	)
 }
 
 @Composable
@@ -334,6 +344,7 @@ fun SelectedDayContentPreview() {
 			Column {
 				SelectedDayContent(
 					-1,
+					"12.06",
 					listOf(
 						ForecastWeatherInfo(
 							date = "12.06",
@@ -350,10 +361,12 @@ fun SelectedDayContentPreview() {
 							snow = NO_DATA,
 							weatherId = 804,
 						)
-					)
+					),
+//					null
 				)
 				SelectedDayContent(
 					-1,
+					"12.06",
 					listOf(
 						ForecastWeatherInfo(
 							date = "12.06",
@@ -370,10 +383,12 @@ fun SelectedDayContentPreview() {
 							snow = NO_DATA,
 							weatherId = 500,
 						)
-					)
+					),
+//					null
 				)
 				SelectedDayContent(
 					-1,
+					"13.06",
 					listOf(
 						ForecastWeatherInfo(
 							date = "13.06",
@@ -390,7 +405,8 @@ fun SelectedDayContentPreview() {
 							snow = NO_DATA,
 							weatherId = 200,
 						)
-					)
+					),
+//					null
 				)
 			}
 		}

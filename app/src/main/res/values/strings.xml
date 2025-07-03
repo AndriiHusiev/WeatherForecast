@@ -15,8 +15,10 @@
     <string name="error_message">Error message:</string>
     <string name="empty_query">Search query cannot be empty</string>
     <string name="invalid_query">Invalid search query. Try another one</string>
-    <string name="show_less" translatable="false">Show less</string>
-    <string name="show_more" translatable="false">Show more</string>
+    <string name="list_of_cities">List of cities</string>
+    <string name="show_less">Show less</string>
+    <string name="show_more">Show more</string>
+    <string name="add_new_city">Add new city</string>
 
     <string name="feels_like">Feels like</string>
     <string name="pressure">Pressure</string>

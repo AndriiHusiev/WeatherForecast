@@ -8,6 +8,9 @@ import androidx.room.PrimaryKey
 import com.husiev.weather.forecast.composables.main.CurrentWeatherInfo
 import com.husiev.weather.forecast.R
 import com.husiev.weather.forecast.composables.main.NO_DATA
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @Entity(
@@ -52,29 +55,44 @@ data class CurrentWeatherEntity(
 	val snow: Float? = null,
 )
 
-fun List<CurrentWeatherEntity>.asExternalModel(): CurrentWeatherInfo {
-	if (this.isEmpty()) return CurrentWeatherInfo()
+fun CurrentWeatherEntity?.asExternalModel(): CurrentWeatherInfo {
+	if (this == null) return CurrentWeatherInfo()
+	var sunrise = this.sunrise * 1000L
+	var sunset = this.sunset * 1000L
+	if (sunset < Calendar.getInstance().time.time) {
+		val ss = sunset
+		sunset = sunrise + 60 * 60 * 24 * 1000
+		sunrise = ss
+	}
 	
 	return CurrentWeatherInfo(
-		temperature = this[0].temperature.roundToInt().toString() + "°",
-		feelsLike = this[0].feelsLike.roundToInt().toString() + "°",
-		weatherId = this[0].weatherId,
-		weatherIcon = this[0].weatherIcon,
-		pressure = this[0].pressure.toString(),
-		humidity = this[0].humidity.toString(),
-		visibility = if (this[0].visibility < 1000)
-			(this[0].visibility / 1000f).toString()
+		temperature = this.temperature.roundToInt().toString() + "°",
+		feelsLike = this.feelsLike.roundToInt().toString() + "°",
+		weatherId = this.weatherId,
+		weatherIcon = this.weatherIcon,
+		pressure = this.pressure.toString(),
+		humidity = this.humidity.toString(),
+		visibility = if (this.visibility < 1000)
+			(this.visibility / 1000f).toString()
 		else
-			(this[0].visibility / 1000).toString(),
-		sunrise = this[0].sunrise,
-		sunset = this[0].sunset,
-		windSpeed = this[0].windSpeed?.roundToInt()?.toString() ?: "",
-		windDeg = this[0].windDeg?.toFloat(),
-		windDir = this[0].windDeg.degToDir(),
-		windGust = this[0].windGust?.roundToInt()?.toString() ?: NO_DATA,
-		cloudiness = this[0].cloudiness?.let { ", $it%" } ?: NO_DATA,
-		rain = this[0].rain?.let { ", $it" } ?: NO_DATA,
-		snow = this[0].snow?.let { ", $it" } ?: NO_DATA
+			(this.visibility / 1000).toString(),
+		sunrise = sunrise.toFloat(),
+		sunset = sunset.toFloat(),
+		sunriseTime = SimpleDateFormat(
+//			dd.MM.yyyy HH:mm",
+			"HH:mm",
+			Locale.getDefault()).format(sunrise),
+		sunsetTime = SimpleDateFormat(
+//			"dd.MM.yyyy HH:mm",
+			"HH:mm",
+			Locale.getDefault()).format(sunset),
+		windSpeed = this.windSpeed?.roundToInt()?.toString() ?: "",
+		windDeg = this.windDeg?.toFloat(),
+		windDir = this.windDeg.degToDir(),
+		windGust = this.windGust?.roundToInt()?.toString() ?: NO_DATA,
+		cloudiness = this.cloudiness?.let { ", $it%" } ?: NO_DATA,
+		rain = this.rain?.let { ", $it" } ?: NO_DATA,
+		snow = this.snow?.let { ", $it" } ?: NO_DATA
 	)
 }
 

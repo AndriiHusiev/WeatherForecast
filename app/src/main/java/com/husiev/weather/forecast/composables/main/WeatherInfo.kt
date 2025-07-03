@@ -1,5 +1,7 @@
 package com.husiev.weather.forecast.composables.main
 
+import com.husiev.weather.forecast.composables.cityadding.PreviewCityInfo
+
 const val NO_DATA = "--"
 
 data class WeatherInfo(
@@ -7,6 +9,7 @@ data class WeatherInfo(
 	val current: CurrentWeatherInfo = CurrentWeatherInfo(),
 	val briefForecast: List<ForecastBriefInfo> = emptyList(),
 	val fullForecast: List<ForecastWeatherInfo> = emptyList(),
+	val preview: List<PreviewCityInfo> = emptyList(),
 )
 
 data class CityInfo (
@@ -29,8 +32,10 @@ data class CurrentWeatherInfo(
 	val humidity: String = NO_DATA,
 	val visibility: String = NO_DATA,
 	
-	val sunrise: Int = 0,
-	val sunset: Int = 0,
+	val sunrise: Float = 0f,
+	val sunset: Float = 0f,
+	val sunriseTime: String = NO_DATA,
+	val sunsetTime: String = NO_DATA,
 	
 	val windSpeed: String = NO_DATA,
 	val windDeg: Float? = null,
@@ -43,6 +48,7 @@ data class CurrentWeatherInfo(
 )
 
 data class ForecastBriefInfo(
+	val index: Int = -1,
 	val date: String,
 	val dayOfWeek: String,
 	val weatherIcon: String,

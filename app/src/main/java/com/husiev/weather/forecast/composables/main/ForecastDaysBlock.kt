@@ -46,7 +46,7 @@ fun ForecastDaysBlock(
 					dayOfWeek = forecast[i].dayOfWeek,
 					weatherIcon = forecast[i].weatherIcon,
 					temperatureRange = forecast[i].temperatureRange,
-					onClick = { onClick(i) },
+					onClick = { onClick(forecast[i].index) },
 				)
 			}
 		}
